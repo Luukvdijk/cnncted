@@ -59,6 +59,7 @@ export function WorkRail({ lang, t, cases }: { lang: string; t: Dictionary["work
         className="mt-12 flex snap-x snap-mandatory scroll-px-[clamp(1rem,4vw,3.5rem)] gap-5 overflow-x-auto px-[clamp(1rem,4vw,3.5rem)] pb-24 [scrollbar-width:none] lg:mt-auto lg:w-max lg:snap-none lg:gap-8 lg:overflow-visible lg:pb-[6vh]"
       >
         {cases.map((c) => {
+          // Swipe row (below lg): every card the same size. Pinned rail: landscape covers stay wide.
           const landscape = c.cover.width > c.cover.height;
           return (
             <CaseCard
@@ -66,9 +67,9 @@ export function WorkRail({ lang, t, cases }: { lang: string; t: Dictionary["work
               c={c}
               lang={lang}
               viewLabel={t.view}
-              sizes="(min-width: 1024px) 50vw, 85vw"
-              className={`shrink-0 snap-start ${landscape ? "w-[85vw] sm:w-[34rem] lg:w-[calc((100svh-28rem)*1.5)]" : "w-[78vw] sm:w-[24rem] lg:w-[calc((100svh-28rem)*0.8)]"}`}
-              mediaClassName={landscape ? "aspect-[3/2]" : "aspect-[4/5]"}
+              sizes="(min-width: 1024px) 50vw, 80vw"
+              className={`w-[78vw] shrink-0 snap-start sm:w-[24rem] ${landscape ? "lg:w-[calc((100svh-28rem)*1.5)]" : "lg:w-[calc((100svh-28rem)*0.8)]"}`}
+              mediaClassName={landscape ? "aspect-[4/5] lg:aspect-[3/2]" : "aspect-[4/5]"}
               titleClassName="text-[clamp(1.35rem,1.9vw,1.85rem)]"
             />
           );
