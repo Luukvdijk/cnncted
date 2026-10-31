@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0e10;
+  --color-ink-soft: #2a2b27;
+  --color-paper: #ffffff;
+  --color-mist: #eef0ea;
+  --color-lime: #d6ff3f;
+  --color-lime-deep: #bfe800;
+  --color-grey: #5f625b;
+  --color-line: rgb(14 14 16 / 0.12);
+  --color-line-light: rgb(255 255 255 / 0.16);
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-lime);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1680px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3.5rem);
+  }
+
+  .display {
+    font-weight: 800;
+    font-size: clamp(3.1rem, 10.4vw, 11.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.058em;
+  }
+
+  .h2 {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6.6vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: -0.052em;
+  }
+
+  .h3 {
+    font-weight: 750;
+    font-size: clamp(1.55rem, 2.5vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  .lead {
+    font-size: clamp(1.15rem, 1.55vw, 1.45rem);
+    line-height: 1.38;
+    letter-spacing: -0.014em;
+  }
+
+  .meta {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-grey);
+  }
+
+  /* The logo dot: the full stop that closes every heading. */
+  .dot {
+    display: inline-block;
+    width: 0.19em;
+    height: 0.19em;
+    margin-left: 0.05em;
+    border-radius: 999px;
+    background: var(--dot, var(--color-lime-deep));
+    vertical-align: baseline;
+  }
+  .on-dark .dot,
+  .on-lime .dot {
+    --dot: var(--color-lime);
+  }
+  .on-lime .dot {
+    --dot: var(--color-ink);
+  }
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: 999px;
+    padding: 0.95em 1.45em;
+    font-weight: 650;
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition: color 0.45s var(--ease-out-expo), border-color 0.45s var(--ease-out-expo);
+  }
+  .btn-dot {
+    position: relative;
+    width: 0.5em;
+    height: 0.5em;
+    flex: none;
+    border-radius: 999px;
+    background: var(--btn-dot, var(--color-lime));
+  }
+  .btn-dot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: inherit;
+    transform: scale(0);
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  .btn:hover .btn-dot::before,
+  .btn:focus-visible .btn-dot::before {
+    transform: scale(60);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink:hover,
+  .btn-ink:focus-visible {
+    color: var(--color-ink);
+  }
+  .btn-lime {
+    background: var(--color-lime);
+    color: var(--color-ink);
+    --btn-dot: var(--color-ink);
+  }
+  .btn-lime:hover,
+  .btn-lime:focus-visible {
+    color: var(--color-lime);
+  }
+  .btn-line {
+    border: 1.5px solid currentColor;
+    --btn-dot: var(--color-lime-deep);
+  }
+  .btn-line:hover,
+  .btn-line:focus-visible {
+    color: var(--color-ink);
+    border-color: var(--color-lime-deep);
+  }
+  .on-dark .btn-line {
+    --btn-dot: var(--color-lime);
+  }
+  .on-dark .btn-line:hover,
+  .on-dark .btn-line:focus-visible {
+    border-color: var(--color-lime);
+  }
+
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-out-expo);
+  }
+  .link-line:hover,
+  .link-line:focus-visible {
+    background-size: 100% 1.5px;
+  }
+}
+
+/* Reveal headings stay hidden until GSAP has split them (only when JS runs). */
+.js .reveal,
+.js [data-fade],
+.js [data-hero-in],
+.js [data-hero-line] {
+  visibility: hidden;
+}
+
+.on-dark .meta {
+  color: rgb(255 255 255 / 0.6);
+}
+
+/* Split text lines are clipped so words can rise into view. The padding keeps
+   descenders (g, y, p) inside the clip at tight line heights. */
+.split-line {
+  overflow: clip;
+  padding-block: 0.08em 0.16em;
+  margin-block: -0.08em -0.16em;
+}
+
+/* Page transitions (React ViewTransition) */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+::view-transition-old(.page-out) {
+  animation: 260ms cubic-bezier(0.7, 0, 0.84, 0) both page-out;
+}
+::view-transition-new(.page-in) {
+  animation: 620ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both page-in;
+}
+::view-transition-group(.morph) {
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+/* Card and hero have different aspect ratios: crop instead of stretching. */
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+@keyframes via-blur {
+  30% {
+    filter: blur(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  .btn-dot::before {
+    transition: none;
+  }
+}
