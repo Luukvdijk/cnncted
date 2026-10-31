@@ -4,6 +4,7 @@
 
 Concept website for Cnncted, a creative marketing agency from Amsterdam (owner Floris; current site cnnctedmedia.com, static HTML). Built 2026-10-31 as a sales concept; business context lives in ATLAS (`Projects/Cnncted.md`).
 
+- Live on https://cnncted.luukvandijk.com. Vercel project `cnncted` is connected to github.com/Luukvdijk/cnncted: every push to `main` deploys to production.
 - Next.js 16 App Router, Tailwind v4, GSAP (ScrollTrigger, SplitText) and Lenis for motion. Run with preview entry `cnncted` (port 5185).
 - Routes live under `src/app/[lang]` so Dutch can be added later: add `nl` to `locales` in `src/content/site.ts` and a `src/content/nl.ts` typed as `Dictionary`. Only `en` exists now; `/` redirects to `/en` (next.config.ts).
 - All copy, cases and media references: `src/content/en.ts`. Case pages are generated from `cases`.
